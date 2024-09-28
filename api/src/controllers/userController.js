@@ -7,9 +7,19 @@ exports.createUser = async (req, res) => {
 	try {
 		const { username, password, name, email } = req.body;
 
-		const existingUser = await User.findOne({ where: { email } });
-		if (existingUser) {
+		const existingUserByEmail = await User.findOne({ where: { email } });
+		const existingUserByUsername = await User.findOne({
+			where: { username },
+		});
+
+		if (existingUserByEmail) {
 			return res.status(400).json({ error: 'El email ya está en uso' });
+		}
+
+		if (existingUserByUsername) {
+			return res
+				.status(400)
+				.json({ error: 'El username ya está en uso' });
 		}
 
 		const newUser = await User.create({ username, password, name, email });
@@ -17,9 +27,10 @@ exports.createUser = async (req, res) => {
 		const invoices = [];
 		for (let i = 0; i < 10; i++) {
 			const newInvoice = await Invoice.create({
-				clientId: newUser.idUser,
+				client: faker.person.fullName(),
 				total: parseFloat(faker.commerce.price()),
 				date: faker.date.past(),
+				userId: newUser.idUser,
 			});
 			invoices.push(newInvoice);
 		}

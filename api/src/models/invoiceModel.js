@@ -11,13 +11,9 @@ const Invoice = sequelize.define(
 			autoIncrement: true,
 			allowNull: false,
 		},
-		clientId: {
-			type: DataTypes.INTEGER,
+		client: {
+			type: DataTypes.STRING,
 			allowNull: false,
-			// references: {
-			// 	model: User,
-			// 	key: 'idUser',
-			// },
 		},
 		total: {
 			type: DataTypes.FLOAT,
@@ -27,6 +23,14 @@ const Invoice = sequelize.define(
 			type: DataTypes.DATE,
 			allowNull: false,
 		},
+		userId: {
+			type: DataTypes.INTEGER,
+			references: {
+				model: User,
+				key: 'idUser',
+			},
+			allowNull: false,
+		},
 	},
 	{
 		tableName: 'invoices',
@@ -34,7 +38,7 @@ const Invoice = sequelize.define(
 	}
 );
 
-User.hasMany(Invoice, { foreignKey: 'clientId' });
-Invoice.belongsTo(User, { foreignKey: 'clientId' });
+User.hasMany(Invoice, { foreignKey: 'userId' });
+Invoice.belongsTo(User, { foreignKey: 'userId' });
 
 module.exports = Invoice;
