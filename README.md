@@ -8,13 +8,21 @@ Estructura del Proyecto
 Backend:
 
 Framework: Node.js con Express
+
 Base de datos: PostgreSQL
+
 ORM: Sequelize
+
 Librerías:
+
 . dotenv: Manejo de variables de entorno
+
 . axios: Solicitudes HTTP desde el frontend
+
 . faker: Generación de datos aleatorios para la base de datos (facturas)
+
 . bcrypt: Encriptado de contraseñas del usuario
+
 
 Frontend:
 
