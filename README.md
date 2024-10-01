@@ -130,15 +130,7 @@ Uso
 Tecnologías Utilizadas
 
 Backend:
-. Node.js
-. Express
-. PostgreSQL
-. Sequelize
-. Faker.js
+ Node.js ,Express, PostgreSQL, Sequelize, Faker.js, bcrypt
 
 Frontend:
-. React
-. Axios
-. React Router
-. Styled Components
-. React Modal
+React, Axios, React Router, Styled Components, React Modal
