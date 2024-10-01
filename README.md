@@ -27,36 +27,58 @@ Librerías:
 Frontend:
 
 Librería: React
+
 . Librerías utilizadas:
+
 axios: Para realizar peticiones HTTP al backend
+
 styled-components: Para estilos personalizados
+
 react-router-dom: Para manejo de rutas
+
 react-modal: Para manejar modales
 
+
 Funcionalidades:
-Registro e inicio de sesión de usuarios
-Listado de facturas con búsqueda y ordenación
-Cambio de contraseña con recuperación por correo
-Cambio de tema (light/dark)
+
+. Registro e inicio de sesión de usuarios
+
+. Listado de facturas con búsqueda y ordenación
+
+. Cambio de contraseña con recuperación por correo
+
+. Cambio de tema (light/dark)
 
 Requisitos
+
 . Requisitos mínimos:
+
 Node.js: v14.x o superior
+
 npm: v6.x o superior
+
 PostgreSQL: v12.x o superior
+
 Es necesario tener PostgreSQL instalado y configurado. Se recomienda configurar un usuario y una base de datos específica para esta aplicación.
+
 . Requisitos opcionales:
+
 Visual Studio Code o cualquier otro editor de código para facilitar la edición y ejecución del proyecto.
 
 Variables de entorno:
+
 Crear un archivo .env en la raíz del proyecto con la siguiente configuración:
 
 # Configuración de la base de datos
 
 DB_NAME=<nombre_de_la_base_de_datos>
+
 DB_USER=<usuario_postgres>
+
 DB_PASSWORD=<contraseña_postgres>
+
 DB_HOST=localhost
+
 DB_PORT=5433
 
 # Configuración del servidor
@@ -64,7 +86,9 @@ DB_PORT=5433
 PORT=3000
 
 Instalación
+
 Backend
+
 Clona este repositorio:
 
 git clone <URL_DEL_REPOSITORIO>
@@ -95,10 +119,13 @@ npm start
 
 Uso
 
-Abre tu navegador y accede a http://localhost:3000.
-Regístrate como un nuevo usuario o inicia sesión si ya tienes una cuenta.
-Después de iniciar sesión, verás una lista de facturas generadas aleatoriamente.
-Puedes utilizar el buscador para filtrar las facturas y cambiar el tema entre light/dark.
+. Abre tu navegador y accede a http://localhost:3000.
+
+. Regístrate como un nuevo usuario o inicia sesión si ya tienes una cuenta.
+
+. Después de iniciar sesión, verás una lista de facturas generadas aleatoriamente.
+
+. Puedes utilizar el buscador para filtrar las facturas y cambiar el tema entre light/dark.
 
 Tecnologías Utilizadas
 
