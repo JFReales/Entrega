@@ -28,7 +28,7 @@ const User = sequelize.define(
 			allowNull: false,
 			unique: true,
 			validate: {
-				isEmail: true,
+				isEmail: { msg: 'El formato del email es inválido' },
 			},
 		},
 	},

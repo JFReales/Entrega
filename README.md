@@ -14,7 +14,7 @@ Librerías:
 . dotenv: Manejo de variables de entorno
 . axios: Solicitudes HTTP desde el frontend
 . faker: Generación de datos aleatorios para la base de datos (facturas)
-
+. bcrypt: Encriptado de contraseñas del usuario
 
 Frontend:
 
@@ -44,6 +44,7 @@ Variables de entorno:
 Crear un archivo .env en la raíz del proyecto con la siguiente configuración:
 
 # Configuración de la base de datos
+
 DB_NAME=<nombre_de_la_base_de_datos>
 DB_USER=<usuario_postgres>
 DB_PASSWORD=<contraseña_postgres>
@@ -51,6 +52,7 @@ DB_HOST=localhost
 DB_PORT=5433
 
 # Configuración del servidor
+
 PORT=3000
 
 Instalación
@@ -83,15 +85,12 @@ Inicia el servidor de desarrollo del frontend:
 
 npm start
 
-
 Uso
 
 Abre tu navegador y accede a http://localhost:3000.
 Regístrate como un nuevo usuario o inicia sesión si ya tienes una cuenta.
 Después de iniciar sesión, verás una lista de facturas generadas aleatoriamente.
 Puedes utilizar el buscador para filtrar las facturas y cambiar el tema entre light/dark.
-
-
 
 Tecnologías Utilizadas
 

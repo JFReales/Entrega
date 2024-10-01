@@ -2,19 +2,23 @@ const User = require('../models/userModel');
 const Invoice = require('../models/invoiceModel');
 const { faker } = require('@faker-js/faker');
 const { Op } = require('sequelize');
+const bcrypt = require('bcrypt');
 
 exports.createUser = async (req, res) => {
+	saltRounds = 10;
+
 	try {
 		const { username, password, name, email } = req.body;
 
 		const existingUserByEmail = await User.findOne({ where: { email } });
-		const existingUserByUsername = await User.findOne({
-			where: { username },
-		});
 
 		if (existingUserByEmail) {
 			return res.status(400).json({ error: 'El email ya está en uso' });
 		}
+
+		const existingUserByUsername = await User.findOne({
+			where: { username },
+		});
 
 		if (existingUserByUsername) {
 			return res
@@ -22,7 +26,13 @@ exports.createUser = async (req, res) => {
 				.json({ error: 'El username ya está en uso' });
 		}
 
-		const newUser = await User.create({ username, password, name, email });
+		const hashedPassword = await bcrypt.hash(password, saltRounds);
+		const newUser = await User.create({
+			username,
+			password: hashedPassword,
+			name,
+			email,
+		});
 
 		const invoices = [];
 		for (let i = 0; i < 10; i++) {
@@ -41,8 +51,10 @@ exports.createUser = async (req, res) => {
 			invoices,
 		});
 	} catch (error) {
-		console.error('Error al crear el usuario:', error);
-		res.status(500).json({ error: 'Error al crear el usuario' });
+		if (error.name === 'SequelizeValidationError') {
+			const validationErrors = error.errors.map((err) => err.message);
+			return res.status(400).json({ error: validationErrors });
+		}
 	}
 };
 
@@ -78,11 +90,20 @@ exports.login = async (req, res) => {
 			},
 		});
 
-		if (!user || user.password !== password) {
+		if (!user) {
 			return res.status(401).json({ error: 'Credenciales incorrectas' });
 		}
 
-		res.json({ mensaje: 'Inicio de sesión exitoso', user });
+		const isMatch = await bcrypt.compare(password, user.password);
+
+		if (!isMatch) {
+			return res.status(401).json({ error: 'Credenciales incorrectas' });
+		}
+
+		res.json({
+			message: 'Inicio de sesión exitoso',
+			user,
+		});
 	} catch (error) {
 		console.error('Error al iniciar sesión:', error);
 		res.status(500).json({ error: 'Error al iniciar sesión' });
@@ -94,13 +115,18 @@ exports.updateUser = async (req, res) => {
 		const idUser = req.params.id;
 		const { username, password, name } = req.body;
 		const user = await User.findByPk(idUser);
+
 		if (!user) {
 			return res.status(404).json({ error: 'Usuario no encontrado' });
 		}
 
 		user.username = username || user.username;
-		user.password = password || user.password;
 		user.name = name || user.name;
+
+		if (password) {
+			const hashedPassword = await bcrypt.hash(password, saltRounds);
+			user.password = hashedPassword;
+		}
 
 		await user.save();
 
@@ -159,7 +185,9 @@ exports.resetPassword = async (req, res) => {
 				.json({ success: false, message: 'Usuario no encontrado' });
 		}
 
-		user.password = password;
+		const hashedPassword = await bcrypt.hash(password, saltRounds);
+		user.password = hashedPassword;
+
 		await user.save();
 
 		res.status(200).json({
