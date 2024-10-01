@@ -1,4 +1,5 @@
 Facturación App - README
+
 Descripción
 Esta es una aplicación de facturación que permite a los usuarios registrarse, iniciar sesión, ver una lista de facturas y realizar otras acciones como recuperación de contraseña y cambio de tema (dark/light). El backend está construido con Node.js y Express, mientras que el frontend utiliza React. La base de datos es PostgreSQL.
 
